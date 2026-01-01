@@ -1,4 +1,5 @@
 import { useStorageProvider } from '~~/server/utils/useStorageProvider'
+import { eq } from 'drizzle-orm'
 
 // Admin endpoint to reject/delete a submission
 export default eventHandler(async (event) => {

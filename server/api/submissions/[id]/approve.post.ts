@@ -1,4 +1,5 @@
 import { generateSafePhotoId } from '~~/server/utils/file-utils'
+import { eq } from 'drizzle-orm'
 
 // Admin endpoint to approve a submission and convert it to a photo
 export default eventHandler(async (event) => {
