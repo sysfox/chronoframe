@@ -23,6 +23,11 @@ const navItems = computed<NavigationMenuItem[][]>(() => [
       to: '/dashboard/albums',
     },
     {
+      label: 'Submissions',
+      icon: 'tabler:photo-up',
+      to: '/dashboard/submissions',
+    },
+    {
       label: $t('title.queue'),
       icon: 'tabler:list-check',
       to: '/dashboard/queue',

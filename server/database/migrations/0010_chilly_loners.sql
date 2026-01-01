@@ -1,0 +1,21 @@
+CREATE TABLE `submissions` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`storage_key` text NOT NULL,
+	`original_url` text,
+	`thumbnail_url` text,
+	`thumbnail_hash` text,
+	`submitter_name` text,
+	`submitter_email` text,
+	`submitter_message` text,
+	`file_name` text NOT NULL,
+	`file_size` integer,
+	`width` integer,
+	`height` integer,
+	`status` text DEFAULT 'pending' NOT NULL,
+	`reviewed_by` integer,
+	`reviewed_at` integer,
+	`photo_id` text,
+	`created_at` integer DEFAULT (unixepoch()) NOT NULL,
+	FOREIGN KEY (`reviewed_by`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE set null,
+	FOREIGN KEY (`photo_id`) REFERENCES `photos`(`id`) ON UPDATE no action ON DELETE set null
+);
