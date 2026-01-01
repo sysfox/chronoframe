@@ -206,3 +206,40 @@ export const settings_storage_providers = sqliteTable(
       .default(sql`(unixepoch())`),
   },
 )
+
+// 游客提交的照片表
+export const submissions = sqliteTable('submissions', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  // 存储相关字段
+  storageKey: text('storage_key').notNull(),
+  originalUrl: text('original_url'),
+  thumbnailUrl: text('thumbnail_url'),
+  thumbnailHash: text('thumbnail_hash'),
+  // 提交者信息
+  submitterName: text('submitter_name'),
+  submitterEmail: text('submitter_email'),
+  submitterMessage: text('submitter_message'),
+  // 照片基本信息
+  fileName: text('file_name').notNull(),
+  fileSize: integer('file_size'),
+  width: integer('width'),
+  height: integer('height'),
+  // 审核状态
+  status: text('status', {
+    enum: ['pending', 'approved', 'rejected'],
+  })
+    .notNull()
+    .default('pending'),
+  // 审核信息
+  reviewedBy: integer('reviewed_by').references(() => users.id, {
+    onDelete: 'set null',
+  }),
+  reviewedAt: integer('reviewed_at', { mode: 'timestamp' }),
+  photoId: text('photo_id').references(() => photos.id, {
+    onDelete: 'set null',
+  }), // 批准后对应的照片 ID
+  // 时间戳
+  createdAt: integer('created_at', { mode: 'timestamp' })
+    .notNull()
+    .default(sql`(unixepoch())`),
+})
