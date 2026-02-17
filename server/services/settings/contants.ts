@@ -138,6 +138,43 @@ export const DEFAULT_SETTINGS = [
     label: 'settings.storage_provider.provider.label',
     description: 'settings.storage_provider.provider.description',
   },
+  // NAMESPACE: analytics
+  {
+    namespace: 'analytics',
+    key: 'custom.enabled',
+    type: 'boolean',
+    defaultValue: false,
+    label: 'settings.analytics.custom.enabled.label',
+    description: 'settings.analytics.custom.enabled.description',
+    isPublic: true,
+  },
+  {
+    namespace: 'analytics',
+    key: 'custom.headScript',
+    type: 'string',
+    defaultValue: '',
+    label: 'settings.analytics.custom.headScript.label',
+    description: 'settings.analytics.custom.headScript.description',
+    isPublic: true,
+  },
+  {
+    namespace: 'analytics',
+    key: 'custom.bodyScript',
+    type: 'string',
+    defaultValue: '',
+    label: 'settings.analytics.custom.bodyScript.label',
+    description: 'settings.analytics.custom.bodyScript.description',
+    isPublic: true,
+  },
+  {
+    namespace: 'analytics',
+    key: 'custom.externalScripts',
+    type: 'json',
+    defaultValue: [],
+    label: 'settings.analytics.custom.externalScripts.label',
+    description: 'settings.analytics.custom.externalScripts.description',
+    isPublic: true,
+  },
 ] as const satisfies SettingConfig[]
 
 export const settingNamespaces = [

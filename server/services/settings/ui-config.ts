@@ -260,6 +260,31 @@ export const STORAGE_SETTINGS_UI: Record<string, FieldUIConfig> = {
   },
 }
 
+export const ANALYTICS_SETTINGS_UI: Record<string, FieldUIConfig> = {
+  'custom.enabled': {
+    type: 'toggle',
+    help: 'settings.analytics.custom.enabled.help',
+  },
+  'custom.headScript': {
+    type: 'textarea',
+    placeholder: 'window.custom = { /* your code */ }',
+    help: 'settings.analytics.custom.headScript.help',
+    visibleIf: { fieldKey: 'custom.enabled', value: true },
+  },
+  'custom.bodyScript': {
+    type: 'textarea',
+    placeholder: 'console.log("page loaded")',
+    help: 'settings.analytics.custom.bodyScript.help',
+    visibleIf: { fieldKey: 'custom.enabled', value: true },
+  },
+  'custom.externalScripts': {
+    type: 'textarea',
+    placeholder: '[{"src":"https://example.com/script.js","async":true}]',
+    help: 'settings.analytics.custom.externalScripts.help',
+    visibleIf: { fieldKey: 'custom.enabled', value: true },
+  },
+}
+
 /**
  * Get UI configuration for a specific setting
  * Used to return complete field descriptions in the fields.get.ts API
@@ -273,6 +298,7 @@ export function getSettingUIConfig(
     map: MAP_SETTINGS_UI,
     location: LOCATION_SETTINGS_UI,
     storage: STORAGE_SETTINGS_UI,
+    analytics: ANALYTICS_SETTINGS_UI,
   }
 
   return uiConfigMap[namespace]?.[key]

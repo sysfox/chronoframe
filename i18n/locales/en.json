@@ -364,7 +364,10 @@
     "location": "Location services",
     "generalSettings": "General Settings",
     "appearanceSettings": "Appearance Settings",
-    "mapAndLocation": "Map & Location"
+    "mapAndLocation": "Map & Location",
+    "analyticsSettings": "Analytics Settings",
+    "customAnalytics": "Custom Analytics Scripts",
+    "analyticsHelp": "Analytics Services Help"
   },
   "auth": {
     "form": {
@@ -1056,6 +1059,30 @@
         "cdnUrl": {
           "label": "CDN URL",
           "description": "Custom CDN URL for accessing images"
+        }
+      }
+    },
+    "analytics": {
+      "custom": {
+        "enabled": {
+          "label": "Enable Custom Analytics Scripts",
+          "description": "Enable custom analytics script injection",
+          "help": "When enabled, custom analytics scripts will be injected from settings"
+        },
+        "headScript": {
+          "label": "Head Script",
+          "description": "JavaScript code to inject into the HTML <head> tag",
+          "help": "Used for initializing global variables or configuration, executed before page load"
+        },
+        "bodyScript": {
+          "label": "Body Script",
+          "description": "JavaScript code to execute after the page has fully loaded",
+          "help": "Used for page tracking or other operations that require DOM to be available"
+        },
+        "externalScripts": {
+          "label": "External Scripts",
+          "description": "List of external scripts to load (JSON format)",
+          "help": "JSON array example: [{\"src\":\"https://example.com/script.js\",\"async\":true}]"
         }
       }
     }

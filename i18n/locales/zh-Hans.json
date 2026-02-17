@@ -364,9 +364,12 @@
     "generalSettings": "基本设置",
     "appearanceSettings": "外观设置",
     "storageSettings": "存储设置",
+    "analyticsSettings": "分析设置",
     "systemSettings": "系统设置",
     "mapAndLocation": "地图和位置",
-    "location": "位置服务"
+    "location": "位置服务",
+    "customAnalytics": "自定义分析脚本",
+    "analyticsHelp": "分析服务帮助信息"
   },
   "auth": {
     "form": {
@@ -1058,6 +1061,30 @@
         "cdnUrl": {
           "label": "CDN URL",
           "description": "用于访问图像的自定义 CDN URL"
+        }
+      }
+    },
+    "analytics": {
+      "custom": {
+        "enabled": {
+          "label": "启用自定义分析脚本",
+          "description": "启用自定义分析脚本注入",
+          "help": "勾选后将从设置中注入自定义分析脚本"
+        },
+        "headScript": {
+          "label": "Head 脚本",
+          "description": "注入到 HTML <head> 标签中的 JavaScript 代码",
+          "help": "用于初始化全局变量或配置，在页面加载前执行"
+        },
+        "bodyScript": {
+          "label": "Body 脚本",
+          "description": "在页面加载完成后执行的 JavaScript 代码",
+          "help": "用于页面追踪或其他需要 DOM 可用的操作"
+        },
+        "externalScripts": {
+          "label": "外部脚本",
+          "description": "要加载的外部脚本列表（JSON 格式）",
+          "help": "JSON 数组，例如：[{\"src\":\"https://example.com/script.js\",\"async\":true}]"
         }
       }
     }

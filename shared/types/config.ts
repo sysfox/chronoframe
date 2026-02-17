@@ -13,3 +13,4 @@ export interface MatomoConfig {
 export interface AnalyticsConfig {
   matomo: MatomoConfig
 }
+
