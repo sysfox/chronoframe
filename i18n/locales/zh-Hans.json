@@ -1073,7 +1073,7 @@
         },
         "headScript": {
           "label": "Head 脚本",
-          "description": "注入到 HTML {'<head>'} 标签中的 JavaScript 代码",
+          "description": "注入到 HTML head 标签中的 JavaScript 代码",
           "help": "用于初始化全局变量或配置，在页面加载前执行"
         },
         "bodyScript": {
@@ -1084,7 +1084,7 @@
         "externalScripts": {
           "label": "外部脚本",
           "description": "要加载的外部脚本列表（JSON 格式）",
-          "help": "JSON 数组，例如：[{\"src\":\"https://example.com/script.js\",\"async\":true}]"
+          "help": "JSON 数组"
         }
       }
     }
