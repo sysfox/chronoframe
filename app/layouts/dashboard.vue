@@ -53,6 +53,11 @@ const navItems = computed<NavigationMenuItem[][]>(() => [
           to: '/dashboard/settings/map',
         },
         {
+          label: $t('title.analyticsSettings'),
+          icon: 'tabler:chart-bar',
+          to: '/dashboard/settings/analytics',
+        },
+        {
           label: $t('title.systemSettings'),
           icon: 'tabler:cpu',
           to: '/dashboard/settings/system',

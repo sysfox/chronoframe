@@ -1,6 +1,56 @@
 import type { FieldDescriptor, SettingsFieldsResponse } from '~~/shared/types/settings'
 
 /**
+ * 安全提取错误消息字符串
+ * 处理各种错误对象格式，确保返回可读的字符串
+ */
+function extractErrorMessage(err: unknown): string {
+  if (err instanceof Error) {
+    return err.message
+  }
+  if (typeof err === 'string') {
+    return err
+  }
+  if (err && typeof err === 'object') {
+    // Handle FetchError / H3Error data
+    const e = err as Record<string, any>
+    if (typeof e.statusMessage === 'string') return e.statusMessage
+    if (typeof e.message === 'string') return e.message
+    if (e.data && typeof e.data.message === 'string') return e.data.message
+  }
+  return String(err)
+}
+
+/**
+ * 将 json 类型字段的值转换为 JSON 字符串用于表单显示
+ */
+function serializeFieldForDisplay(field: FieldDescriptor, value: any): any {
+  if (field.type === 'json' && value !== null && value !== undefined && typeof value !== 'string') {
+    try {
+      return JSON.stringify(value, null, 2)
+    } catch {
+      return String(value)
+    }
+  }
+  return value
+}
+
+/**
+ * 将 json 类型字段的表单字符串值解析回 JSON 对象用于提交
+ */
+function deserializeFieldForSubmit(field: FieldDescriptor | undefined, value: any): any {
+  if (field?.type === 'json' && typeof value === 'string') {
+    try {
+      return JSON.parse(value)
+    } catch {
+      // 如果解析失败，保持原始字符串
+      return value
+    }
+  }
+  return value
+}
+
+/**
  * Settings Form Composable
  * 统一处理获取字段描述、管理表单状态、提交更新
  * 避免在各个页面中重复实现相同逻辑
@@ -37,11 +87,13 @@ export function useSettingsForm(namespace: string) {
       fields.value = response.fields
 
       // 使用 API 返回的值初始化状态
+      // json 类型字段需要序列化为字符串用于 textarea 显示
       response.fields.forEach((field) => {
-        state[field.key] = field.value ?? field.defaultValue ?? null
+        const rawValue = field.value ?? field.defaultValue ?? null
+        state[field.key] = serializeFieldForDisplay(field, rawValue)
       })
     } catch (err) {
-      const message = (err as Error).message
+      const message = extractErrorMessage(err)
       error.value = message
       toast.add({
         title: '加载设置失败',
@@ -67,11 +119,15 @@ export function useSettingsForm(namespace: string) {
 
     try {
       // 准备批量更新请求
-      const updates = Object.entries(data).map(([key, value]) => ({
-        namespace,
-        key,
-        value,
-      }))
+      // json 类型字段需要从字符串解析回 JSON 对象
+      const updates = Object.entries(data).map(([key, value]) => {
+        const field = fields.value.find(f => f.key === key)
+        return {
+          namespace,
+          key,
+          value: deserializeFieldForSubmit(field, value),
+        }
+      })
 
       await $fetch('/api/system/settings/batch', {
         method: 'PUT',
@@ -86,7 +142,7 @@ export function useSettingsForm(namespace: string) {
         color: 'success',
       })
     } catch (err) {
-      const message = (err as Error).message
+      const message = extractErrorMessage(err)
       error.value = message
       toast.add({
         title: '保存设置失败',
@@ -104,7 +160,8 @@ export function useSettingsForm(namespace: string) {
    */
   const reset = () => {
     fields.value.forEach((field) => {
-      state[field.key] = field.value ?? field.defaultValue ?? null
+      const rawValue = field.value ?? field.defaultValue ?? null
+      state[field.key] = serializeFieldForDisplay(field, rawValue)
     })
   }
 
