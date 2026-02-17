@@ -1071,7 +1071,7 @@
         },
         "headScript": {
           "label": "Head Script",
-          "description": "JavaScript code to inject into the HTML <head> tag",
+          "description": "JavaScript code to inject into the HTML {'<head>'} tag",
           "help": "Used for initializing global variables or configuration, executed before page load"
         },
         "bodyScript": {
