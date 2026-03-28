@@ -1,6 +1,5 @@
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
+import { join } from 'path'
 
 export default defineTask({
   meta: {
@@ -13,11 +12,8 @@ export default defineTask({
 
     log.info('Migrating database...')
 
-    const __filename = fileURLToPath(import.meta.url)
-    const __dirname = dirname(__filename)
-
     migrate(db, {
-      migrationsFolder: join(__dirname, '../../server/database/migrations'),
+      migrationsFolder: join(process.cwd(), 'server/database/migrations'),
     })
 
     log.success('Database migrated successfully.')
