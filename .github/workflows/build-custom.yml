@@ -25,6 +25,7 @@ jobs:
           TIMESTAMP=$(date -u +"%Y%m%d-%H%M%S")
           GHCR_BASE=$(echo "${{ env.GHCR_REGISTRY }}/${{ env.GHCR_IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
           echo "tag=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "base=${GHCR_BASE}" >> $GITHUB_OUTPUT
           echo "image=${GHCR_BASE}:${TIMESTAMP}" >> $GITHUB_OUTPUT
           echo "Timestamp: $TIMESTAMP"
 
@@ -39,18 +40,24 @@ jobs:
         run: |
           set -euo pipefail
           IMAGE="${{ steps.meta.outputs.image }}"
+          LATEST="${{ steps.meta.outputs.base }}:latest"
           docker build --tag "$IMAGE" .
+          docker tag "$IMAGE" "$LATEST"
           docker push "$IMAGE"
+          docker push "$LATEST"
 
       - name: Generate summary
         run: |
           IMAGE="${{ steps.meta.outputs.image }}"
           TAG="${{ steps.meta.outputs.tag }}"
+          LATEST="${{ steps.meta.outputs.base }}:latest"
 
           echo "## 🐳 Custom Image Built and Pushed Successfully!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Tag:** \`${TAG}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Image:** \`${IMAGE}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Images:**" >> $GITHUB_STEP_SUMMARY
+          echo "- \`${IMAGE}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`${LATEST}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Triggered by:** \`${{ github.event_name }}\` on branch \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
