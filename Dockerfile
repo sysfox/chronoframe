@@ -33,5 +33,4 @@ ENV NODE_ENV=production
 ENV NITRO_PORT=3000
 ENV NITRO_HOST=0.0.0.0
 
-# node scripts/migrate.mjs first
-CMD ["sh", "-c", "node scripts/migrate.mjs && node .output/server/index.mjs"]
+CMD ["node", ".output/server/index.mjs"]
