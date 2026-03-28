@@ -33,6 +33,11 @@ export const APP_SETTINGS_UI: Record<string, FieldUIConfig> = {
     type: 'toggle',
     help: 'settings.app.allowOriginalImage.help',
   },
+  customScript: {
+    type: 'textarea',
+    placeholder: '<!-- e.g. Google Analytics, custom tracking, etc. -->',
+    help: 'settings.app.customScript.help',
+  },
   'appearance.theme': {
     type: 'tabs',
     options: [

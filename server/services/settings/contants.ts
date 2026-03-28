@@ -64,6 +64,15 @@ export const DEFAULT_SETTINGS = [
   },
   {
     namespace: 'app',
+    key: 'customScript',
+    type: 'string',
+    defaultValue: '',
+    label: 'settings.app.customScript.label',
+    description: 'settings.app.customScript.description',
+    isPublic: true,
+  },
+  {
+    namespace: 'app',
     key: 'appearance.theme',
     type: 'string',
     defaultValue: 'system',

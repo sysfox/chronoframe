@@ -12,11 +12,17 @@ const colorMode = useColorMode()
 const { fields, state, submit, loading } = useSettingsForm('app')
 
 const appFields = computed(() =>
-  fields.value.filter((f) => !f.key.startsWith('appearance.')),
+  fields.value.filter(
+    (f) => !f.key.startsWith('appearance.') && f.key !== 'customScript',
+  ),
 )
 
 const appearanceFields = computed(() =>
   fields.value.filter((f) => f.key.startsWith('appearance.')),
+)
+
+const customScriptFields = computed(() =>
+  fields.value.filter((f) => f.key === 'customScript'),
 )
 
 const handleAppSettingsSubmit = async () => {
@@ -39,6 +45,17 @@ const handleAppearanceSettingsSubmit = async () => {
     if (state['appearance.theme']) {
       colorMode.preference = state['appearance.theme']
     }
+  } catch {
+    /* empty */
+  }
+}
+
+const handleCustomScriptSubmit = async () => {
+  const scriptData = Object.fromEntries(
+    customScriptFields.value.map((f) => [f.key, state[f.key]]),
+  )
+  try {
+    await submit(scriptData)
   } catch {
     /* empty */
   }
@@ -111,6 +128,39 @@ const handleAppearanceSettingsSubmit = async () => {
               :loading="loading"
               type="submit"
               form="appearanceSettingsForm"
+              variant="soft"
+              icon="tabler:device-floppy"
+            >
+              保存设置
+            </UButton>
+          </template>
+        </UCard>
+
+        <!-- 自定义脚本 -->
+        <UCard variant="outline">
+          <template #header>
+            <span>{{ $t('settings.app.customScript.label') }}</span>
+          </template>
+
+          <UForm
+            id="customScriptForm"
+            class="space-y-4"
+            @submit="handleCustomScriptSubmit"
+          >
+            <SettingField
+              v-for="field in customScriptFields"
+              :key="field.key"
+              :field="field"
+              :model-value="state[field.key]"
+              @update:model-value="(val) => (state[field.key] = val)"
+            />
+          </UForm>
+
+          <template #footer>
+            <UButton
+              :loading="loading"
+              type="submit"
+              form="customScriptForm"
               variant="soft"
               icon="tabler:device-floppy"
             >
