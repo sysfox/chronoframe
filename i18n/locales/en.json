@@ -900,6 +900,11 @@
         "label": "Allow Viewing and Downloading Original Images",
         "description": "Controls whether visitors are allowed to load and download original images",
         "help": "When disabled, visitors will only see thumbnails and the download original image button will be hidden"
+      },
+      "customScript": {
+        "label": "Custom Script",
+        "description": "Custom JavaScript code injected into every page",
+        "help": "The script content will be injected into the &lt;head&gt; of every page. Use with caution as this affects all visitors."
       }
     },
     "map": {

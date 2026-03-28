@@ -13,12 +13,18 @@ const settingsStore = useSettingsStore()
 await settingsStore.initSettings()
 
 const appTitle = useSettingRef('app:title')
+const customScript = useSettingRef('app:customScript')
 
 colorMode.preference = useSettingRef('app:appearance.theme').value as string
 
 useHead({
   titleTemplate: (title) =>
     `${title ? title + ' | ' : ''}${appTitle.value || 'ChronoFrame'}`,
+  script: computed(() =>
+    customScript.value
+      ? [{ innerHTML: customScript.value as string, tagPosition: 'head' }]
+      : [],
+  ),
 })
 
 const { data, refresh, status } = useFetch('/api/photos')
