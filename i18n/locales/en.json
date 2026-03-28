@@ -895,6 +895,11 @@
           "dark": "Dark",
           "system": "System"
         }
+      },
+      "allowOriginalImage": {
+        "label": "Allow Viewing and Downloading Original Images",
+        "description": "Controls whether visitors are allowed to load and download original images",
+        "help": "When disabled, visitors will only see thumbnails and the download original image button will be hidden"
       }
     },
     "map": {
@@ -1062,10 +1067,18 @@
   },
   "wizard": {
     "admin": {
-      "username": { "label": "Username" },
-      "email": { "label": "Email" },
-      "password": { "label": "Password" },
-      "confirmPassword": { "label": "Confirm Password" }
+      "username": {
+        "label": "Username"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      },
+      "confirmPassword": {
+        "label": "Confirm Password"
+      }
     },
     "map": {
       "provider": {

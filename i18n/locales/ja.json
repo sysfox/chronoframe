@@ -838,6 +838,11 @@
           "dark": "ダーク",
           "system": "システム"
         }
+      },
+      "allowOriginalImage": {
+        "label": "元画像の閲覧・ダウンロードを許可",
+        "description": "訪問者が元の画像を読み込んでダウンロードできるかどうかを制御します",
+        "help": "無効にすると、訪問者はサムネイルのみ表示され、元画像のダウンロードボタンが非表示になります"
       }
     },
     "map": {
@@ -1005,10 +1010,18 @@
   },
   "wizard": {
     "admin": {
-      "username": { "label": "ユーザー名" },
-      "email": { "label": "メールアドレス" },
-      "password": { "label": "パスワード" },
-      "confirmPassword": { "label": "パスワード（確認）" }
+      "username": {
+        "label": "ユーザー名"
+      },
+      "email": {
+        "label": "メールアドレス"
+      },
+      "password": {
+        "label": "パスワード"
+      },
+      "confirmPassword": {
+        "label": "パスワード（確認）"
+      }
     },
     "map": {
       "provider": {

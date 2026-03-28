@@ -28,6 +28,8 @@ const emit = defineEmits<{
 
 const toast = useToast()
 
+const allowOriginalImage = useSettingRef('app:allowOriginalImage')
+
 const containerRef = ref<HTMLDivElement>()
 const swiperRef = ref<SwiperType>()
 const loadingIndicatorRef = ref<LoadingIndicatorRef>()
@@ -706,7 +708,7 @@ const swiperModules = [Navigation, Keyboard, Virtual]
                       }"
                       :loading-indicator-ref="loadingIndicatorRef || null"
                       :is-current-image="index === currentIndex"
-                      :src="photo.originalUrl!"
+                      :src="(allowOriginalImage && photo.originalUrl) || photo.thumbnailUrl!"
                       :thumbnail-src="photo.thumbnailUrl!"
                       :thumbhash="photo.thumbnailHash"
                       :alt="photo.title || ''"
