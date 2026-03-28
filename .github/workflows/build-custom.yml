@@ -1,0 +1,56 @@
+name: Build Custom Image
+
+on:
+  push:
+    branches:
+      - custom
+  workflow_dispatch:
+
+env:
+  GHCR_REGISTRY: ghcr.io
+  GHCR_IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate timestamp tag and image name
+        id: meta
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d-%H%M%S")
+          GHCR_BASE=$(echo "${{ env.GHCR_REGISTRY }}/${{ env.GHCR_IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
+          echo "tag=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "image=${GHCR_BASE}:${TIMESTAMP}" >> $GITHUB_OUTPUT
+          echo "Timestamp: $TIMESTAMP"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.GHCR_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          set -euo pipefail
+          IMAGE="${{ steps.meta.outputs.image }}"
+          docker build --tag "$IMAGE" .
+          docker push "$IMAGE"
+
+      - name: Generate summary
+        run: |
+          IMAGE="${{ steps.meta.outputs.image }}"
+          TAG="${{ steps.meta.outputs.tag }}"
+
+          echo "## 🐳 Custom Image Built and Pushed Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Tag:** \`${TAG}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Image:** \`${IMAGE}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by:** \`${{ github.event_name }}\` on branch \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
