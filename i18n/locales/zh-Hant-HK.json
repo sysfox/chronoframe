@@ -838,6 +838,11 @@
           "dark": "深色",
           "system": "系統"
         }
+      },
+      "allowOriginalImage": {
+        "label": "允許查看同下載原圖",
+        "description": "控制係咪允許訪客加載同下載原始圖片",
+        "help": "禁用後，訪客只可以查看縮略圖，下載原圖按鈕將會隱藏"
       }
     },
     "map": {
@@ -1005,10 +1010,18 @@
   },
   "wizard": {
     "admin": {
-      "username": { "label": "用戶名" },
-      "email": { "label": "電子郵箱" },
-      "password": { "label": "密碼" },
-      "confirmPassword": { "label": "確認密碼" }
+      "username": {
+        "label": "用戶名"
+      },
+      "email": {
+        "label": "電子郵箱"
+      },
+      "password": {
+        "label": "密碼"
+      },
+      "confirmPassword": {
+        "label": "確認密碼"
+      }
     },
     "map": {
       "provider": {

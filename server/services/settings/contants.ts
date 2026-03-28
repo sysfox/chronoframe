@@ -55,6 +55,15 @@ export const DEFAULT_SETTINGS = [
   },
   {
     namespace: 'app',
+    key: 'allowOriginalImage',
+    type: 'boolean',
+    defaultValue: true,
+    label: 'settings.app.allowOriginalImage.label',
+    description: 'settings.app.allowOriginalImage.description',
+    isPublic: true,
+  },
+  {
+    namespace: 'app',
     key: 'appearance.theme',
     type: 'string',
     defaultValue: 'system',

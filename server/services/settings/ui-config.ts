@@ -29,6 +29,10 @@ export const APP_SETTINGS_UI: Record<string, FieldUIConfig> = {
     placeholder: 'https://example.com/avatar.jpg',
     help: 'settings.app.avatarUrl.help',
   },
+  allowOriginalImage: {
+    type: 'toggle',
+    help: 'settings.app.allowOriginalImage.help',
+  },
   'appearance.theme': {
     type: 'tabs',
     options: [

@@ -14,6 +14,8 @@ const emit = defineEmits<{
 const toast = useToast()
 const { gtag } = useGtag()
 
+const allowOriginalImage = useSettingRef('app:allowOriginalImage')
+
 const shareUrl = computed(() => {
   if (typeof window !== 'undefined') {
     return `${window.location.origin}/${props.photo.id}`
@@ -430,6 +432,7 @@ defineShortcuts({
                 {{ $t('ui.action.share.actions.nativeShare') }}
               </UButton>
               <UButton
+                v-if="allowOriginalImage"
                 block
                 size="lg"
                 color="info"
