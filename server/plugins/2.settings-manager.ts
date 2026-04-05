@@ -1,7 +1,10 @@
 import { DEFAULT_SETTINGS } from '../services/settings/contants'
 import { settingsManager } from '../services/settings/settingsManager'
+import { ensureDbMigrated } from '../utils/ensure-db-migrated'
 
 export default defineNitroPlugin(async (_nitroApp) => {
+  await ensureDbMigrated()
+
   const _settingsManager = settingsManager
   
   // Mark initialization phase to prevent storage provider switch triggers
