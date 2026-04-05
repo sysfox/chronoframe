@@ -1,7 +1,5 @@
 declare global {
-  // eslint-disable-next-line no-var
   var __dbMigrationPromise: Promise<void> | undefined
-  // eslint-disable-next-line no-var
   var __dbMigrated: boolean | undefined
 }
 
